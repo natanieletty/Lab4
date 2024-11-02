@@ -6,28 +6,42 @@ on:
       - main
 
 jobs:
-  display-software-versions:
+  check-smartphone-os:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Display software versions
+    - name: Display Android OS version
       run: |
-        echo "Node.js version:"
-        node --version
-        echo "Python version:"
-        python --version
-
-  display-dbms-versions:
-    needs: display-software-versions
+        echo "Версія ОС Android:"
+        adb shell getprop ro.build.version.release || echo "Немає доступу до Android ОС"
+  
+  check-server-application:
+    needs: check-smartphone-os
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Display DBMS version
+    - name: Display Linux OS version
       run: |
-        echo "PostgreSQL version:"
-        psql --version
- 
+        echo "Версія ОС Linux:"
+        uname -r
+    
+    - name: Display Apache Tomcat version
+      run: |
+        echo "Версія Apache Tomcat:"
+        curl -s http://localhost:8080 | grep "Apache Tomcat" || echo "Tomcat не встановлено або недоступний"
+
+  check-database-server:
+    needs: check-server-application
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Display MySQL version
+      run: |
+        echo "Версія MySQL:"
+        mysql --version || echo "MySQL не встановлено або недоступний"
