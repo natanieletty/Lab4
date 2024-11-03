@@ -145,10 +145,9 @@
             }
           },
           "required": ["type", "renewal_date"]
-        }
-      },
+      
       "required": ["first_name", "last_name", "email", "works", "profile_status", "subscription"]
-    }
+  
   },
   "required": ["user"]
 }
