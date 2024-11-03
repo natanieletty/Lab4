@@ -1,4 +1,4 @@
-{
+
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "User Data Model",
   "description": "Деталізована модель користувача, його робіт, фільтрів та підписки",
@@ -38,7 +38,7 @@
           "items": {
             "type": "object",
             "properties": {
-              "title": {
+              "title": 
                 "type": "string",
                 "description": "Назва роботи",
                 "minLength": 1,
